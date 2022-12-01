@@ -1,0 +1,22 @@
+// 3. Longest Substring Without Repeating Characters
+// Given a string s, find the length of the longest substring without repeating characters.
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int left = 0;
+        int right = 0;
+        int ans = 0;
+        int listOfOccurance[256] = {0};
+        while(right < s.length()) {
+            listOfOccurance[s[right]]++;
+            while(listOfOccurance[s[right]] > 1) {
+                listOfOccurance[s[left]]--;
+                left++;
+            }
+            ans = max(ans, right-left+1);
+            right++;
+        }
+        return ans;
+    }
+};
