@@ -1,0 +1,17 @@
+// 268. Missing Number
+// Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.
+
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int leftover = 0;
+
+        // The total sum of all value (which is the summation of the vector size) 
+        // minus the sum of all found values would return the missing number
+        for(int i = 0, j = nums.size(); i < nums.size(); i++, j--) {
+            leftover += j;
+            leftover -= nums[i];
+        }
+        return leftover;
+    }
+};
