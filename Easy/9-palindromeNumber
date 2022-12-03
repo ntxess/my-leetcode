@@ -1,0 +1,36 @@
+// 9. Palindrome Number
+// Given an integer x, return true if x is a palindrome, and false otherwise.
+
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if(x < 0)
+            return false;
+        
+        // all cases where there is only one digit
+        if((x / 10) < 1 )
+            return true;
+        
+        // digits is total digits - 1
+        int digits = (int)log10(x);
+        
+        // gives me first digit from left
+        int left = (int)(x / pow(10, digits));
+        
+        // gives me first digit from right
+        int right = x % 10;
+        
+        if(left != right)
+            return false;
+        
+        for(int i = 1; i < digits+1 /2; i++)
+        {
+            left = (int)(x / pow(10, digits - i)) % 10;
+            right = (int)(x / pow(10 , i)) % 10;
+
+            if(left != right)
+                return false;
+        }
+        return true;
+    }
+};

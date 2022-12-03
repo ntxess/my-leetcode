@@ -1,0 +1,52 @@
+// 6. Zigzag Conversion
+// The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
+
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        
+        if(numRows <= 1)
+            return s;
+        
+        std::vector<std::pair<char, int>> conversionTable;
+        
+        int currRow = 0;    
+        int i = 0;
+        while(i < s.length())
+        {
+            while(currRow < numRows-1)
+            {
+                if(i >= s.length())
+                    break;
+                
+                conversionTable.push_back(std::make_pair(s[i], currRow++));
+                i++;
+            }
+            
+            while(currRow >= 0)
+            {
+                if(i >= s.length())
+                    break;
+                
+                conversionTable.push_back(std::make_pair(s[i], currRow--));
+                i++;
+            }
+            currRow = 1;
+        }
+        
+        string converted;
+        currRow = 0;
+        while(currRow < numRows)
+        {
+            for(int i = 0; i < conversionTable.size(); i++)
+            {
+                if(conversionTable[i].second == currRow)
+                    converted.push_back(conversionTable[i].first);
+            }
+            
+            currRow++;
+        }
+        
+        return converted;
+    }
+};

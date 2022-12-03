@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "118-pascaltriangle": "cpp"
+        "118-pascaltriangle": "cpp",
+        "1-twosum": "cpp"
     }
 }
