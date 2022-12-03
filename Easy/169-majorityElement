@@ -1,0 +1,28 @@
+// 169. Majority Element
+// Given an array nums of size n, return the majority element.
+// The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
+
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        std::unordered_map<int, int> map;
+
+        for(int i = 0; i < nums.size(); i++) {    
+            map[nums[i]]++;
+        }
+
+        int majority = 0;
+        int result;
+        for(auto& x : map) {
+
+            if(x.second > (nums.size() / 2)) {
+                if(majority < x.second) {
+                    majority = x.second;
+                    result = x.first;
+                }
+            }
+        }
+
+        return result;
+    }
+};
