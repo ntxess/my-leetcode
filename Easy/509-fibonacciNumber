@@ -1,0 +1,25 @@
+// 509. Fibonacci Number
+// The Fibonacci numbers, commonly denoted F(n) form a sequence, called the Fibonacci sequence, such that each number is the sum of the two preceding ones, starting from 0 and 1. That is,
+// Given n, calculate F(n).
+
+class Solution {
+public:
+    int fib(int n) {
+        if(n == 0)
+            return 0;
+            
+        std::unordered_map<int, int> map;
+        return fibHelper(n, map);
+    }
+
+    int fibHelper(int n, std::unordered_map<int, int>& map) {
+        if(map.find(n) != map.end())
+            return map[n];
+
+        if(n <= 2)
+            return 1;
+
+        map[n] = fibHelper(n-1, map) + fibHelper(n-2, map);
+        return map[n];
+    }
+};
