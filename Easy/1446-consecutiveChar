@@ -1,0 +1,26 @@
+// 1446. Consecutive Characters
+// The power of the string is the maximum length of a non-empty substring that contains only one unique character.
+// Given a string s, return the power of s.
+
+class Solution {
+public:
+    int maxPower(string s) {
+        if(s.size() == 1)
+            return 1;
+        
+        char currChar = s[0];
+        int counter = 1, largest = 0;
+        for(int i = 1; i < s.length(); i++) {
+            if(currChar == s[i]) {
+                counter++;
+            } else {
+                currChar = s[i];
+                counter = 1;
+            }
+            
+            if(counter > largest)
+                largest = counter;
+        }
+        return largest;
+    }
+};
