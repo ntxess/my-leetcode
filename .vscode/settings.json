@@ -3,6 +3,7 @@
         "118-pascaltriangle": "cpp",
         "1-twosum": "cpp",
         "141-linkedlistcycle": "cpp",
-        "242-validanagram": "cpp"
+        "242-validanagram": "cpp",
+        "202-happynumber": "cpp"
     }
 }
