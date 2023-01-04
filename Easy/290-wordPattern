@@ -1,0 +1,32 @@
+// 290. Word Pattern
+// Given a pattern and a string s, find if s follows the same pattern.
+// Here follow means a full match, such that there is a bijection between a letter 
+// in pattern and a non-empty word in s.
+
+class Solution {
+public:
+    bool wordPattern(string pattern, string s) {
+        stringstream ss(s);
+        string token;
+
+        vector<string> tokens;
+        while(ss >> token)
+            tokens.push_back(token);
+        
+        if(pattern.length() != tokens.size())
+            return false;
+
+        unordered_map<char, string> map1;
+        unordered_map<string, char> map2;
+        for(int i = 0; i < pattern.length(); i++) {
+            if(map1.find(pattern[i]) != map1.end() || map2.find(tokens[i]) != map2.end()) {
+                if(map1[pattern[i]] != tokens[i] || map2[tokens[i]] != pattern[i])
+                    return false;
+            } else {
+                map1[pattern[i]] = tokens[i];
+                map2[tokens[i]] = pattern[i];
+            }
+        }
+        return true;
+    }
+};
