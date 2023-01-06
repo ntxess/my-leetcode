@@ -1,0 +1,38 @@
+// 705. Design HashSet
+// Design a HashSet without using any built-in hash table libraries.
+
+// Implement MyHashSet class:
+
+// void add(key) Inserts the value key into the HashSet.
+// bool contains(key) Returns whether the value key exists in the HashSet or not.
+// void remove(key) Removes the value key in the HashSet. If key does not exist in the HashSet, do nothing.
+
+class MyHashSet {
+public:
+    int hashSet[1000001]; 
+
+    MyHashSet() {
+        for(int i = 0; i < 1000001; i++)
+            hashSet[i] = 0;
+    }
+    
+    void add(int key) {
+        hashSet[key] = 1;
+    }
+    
+    void remove(int key) {
+        hashSet[key] = 0;
+    }
+    
+    bool contains(int key) {
+        return hashSet[key];
+    }
+};
+
+/**
+ * Your MyHashSet object will be instantiated and called as such:
+ * MyHashSet* obj = new MyHashSet();
+ * obj->add(key);
+ * obj->remove(key);
+ * bool param_3 = obj->contains(key);
+ */

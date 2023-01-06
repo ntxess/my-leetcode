@@ -1,0 +1,19 @@
+// 693. Binary Number with Alternating Bits
+// Given a positive integer, check whether it has alternating bits: namely, if two adjacent bits will always have different values.
+
+class Solution {
+public:
+    bool hasAlternatingBits(int n) {
+        string bits = bitset<32>(n).to_string();
+        int size = log2(n) + 1;
+        
+        char previous = bits[bits.length()-1];
+        for(int i = bits.length() - 2; i > bits.length() - 1 - size; i--) {
+            if(bits[i] == previous)
+                return false;
+            previous = bits[i];
+        }
+
+        return true;
+    }
+};
