@@ -1,0 +1,26 @@
+// 1078. Occurrences After Bigram
+// Given two strings first and second, consider occurrences in some text of the form "first second third", 
+// where second comes immediately after first, and third comes immediately after second.
+// Return an array of all the words third for each occurrence of "first second third".
+
+class Solution {
+public:
+    vector<string> findOcurrences(string text, string first, string second) {
+        vector<string> ans;
+        vector<string> textVec;
+
+        stringstream ss(text);
+        string token;
+
+        while(ss >> token) {
+            textVec.push_back(token);
+        }
+
+        for(int i = 0, j = i+1; j < textVec.size(); i++, j++) {
+            if(textVec[i] == first && textVec[j] == second) 
+                if(j+1 < textVec.size())
+                    ans.push_back(textVec[j+1]);
+        }
+        return ans;
+    }
+};
