@@ -1,0 +1,37 @@
+// 1592. Rearrange Spaces Between Words
+// You are given a string text of words that are placed among some number of spaces. 
+// Each word consists of one or more lowercase English letters and are separated by at least one space. It's guaranteed that text contains at least one word.
+// Rearrange the spaces so that there is an equal number of spaces between every pair of 
+// adjacent words and that number is maximized. If you cannot redistribute all the spaces equally, 
+// place the extra spaces at the end, meaning the returned string should be the same length as text.
+// Return the string after rearranging the spaces.
+
+class Solution {
+public:
+    string reorderSpaces(string text) {
+        int numSpace = 0;
+        for(auto i : text)
+            if(i == ' ')
+                numSpace++;
+        
+        stringstream ss(text);
+
+        string token;
+        vector<string> words;
+        while(ss >> token) {
+            words.push_back(token);
+        }
+
+        if(words.size() == 1)
+            return words[0] + string(numSpace, ' ');
+
+        string ans;
+        int allocatedSpace = numSpace / (words.size() - 1);
+        int extraSpaces = numSpace % (words.size() - 1);
+
+        for(int i = 0; i < words.size(); i++)
+            ans += words[i] + string(allocatedSpace, ' ');
+        
+        return ans.substr(0, ans.size() - allocatedSpace) + string(extraSpaces, ' ');
+    }
+};
