@@ -1,0 +1,39 @@
+// 415. Add Strings
+// Given two non-negative integers, num1 and num2 represented as string, return the sum of num1 and num2 as a string.
+// You must solve the problem without using any built-in library for handling large integers (such as BigInteger). 
+// You must also not convert the inputs to integers directly.
+
+class Solution {
+public:
+    string addStrings(string num1, string num2) {
+        int maxSize = 0;
+        if(num1.size() < num2.size()) {
+            maxSize = num2.size();
+            int sizeDiff = num2.size() - num1.size();
+            num1 = string(sizeDiff, '0') + num1; 
+        } else {
+            maxSize = num1.size();
+            int sizeDiff = num1.size() - num2.size();
+            num2 = string(sizeDiff, '0') + num2;
+        }
+
+        string ans = "";
+        char carry = '0';
+        for(int i = num1.size() - 1; i >= 0; i--) {
+            int digit1 = num1[i] - '0';
+            int digit2 = num2[i] - '0';
+            int sum = digit1 + digit2 + (carry - '0');
+            carry = '0';
+            if(sum > 9)
+            {
+                sum %= 10;
+                carry = '1';
+            }
+            ans.insert(0, to_string(sum));
+        }
+        
+        if(carry == '1')
+            return "1" + ans;
+        return ans;
+    }
+};

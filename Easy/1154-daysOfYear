@@ -1,0 +1,44 @@
+// 1154. Day of the Year
+// Given a string date representing a Gregorian calendar date formatted as YYYY-MM-DD,
+// return the day number of the year.
+
+class Solution {
+public:
+    int dayOfYear(string date) {
+        unordered_map<int, int> months = {
+            {1, 31},
+            {2, 28},
+            {3, 31},
+            {4, 30},
+            {5, 31},
+            {6, 30},
+            {7, 31},
+            {8, 31},
+            {9, 30},
+            {10, 31},
+            {11, 30},
+            {12, 31},
+        };
+
+        // could have manually parsed the string date but this is faster to code. not faster to execute
+        vector<int> YYMMDD;
+        string token;
+        stringstream ss(date);
+        while(getline(ss, token, '-')) {
+            YYMMDD.push_back(stoi(token));
+        }
+
+        int days = YYMMDD[2];
+        for(int i = 1; i <= YYMMDD[1]-1; i++) {
+            if(i == 2) {
+                if(YYMMDD[0] % 4 == 0 && !(YYMMDD[0] % 1000 / 100 != 0 && YYMMDD[0] % 100 == 0))
+                    days += months[i] + 1;
+                else
+                    days += months[i];
+            } else {
+                days += months[i];
+            }
+        }
+        return days;
+    }
+};

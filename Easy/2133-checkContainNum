@@ -1,0 +1,33 @@
+// 2133. Check if Every Row and Column Contains All Numbers
+// An n x n matrix is valid if every row and every column contains all the integers from 1 to n (inclusive).
+//Given an n x n integer matrix matrix, return true if the matrix is valid. Otherwise, return false.
+
+class Solution {
+public:
+    bool checkValid(vector<vector<int>>& matrix) {
+        int key = matrix.size();
+
+        //horizontal check
+        for(int i = 0; i < matrix.size(); i++) {
+            set<int> accountedH;    
+
+            for(int j = 0; j < matrix.size(); j++) 
+                accountedH.insert(matrix[i][j]);
+            
+            if(accountedH.size() != key)
+                return false;
+        }
+        
+        //vertical check
+        for(int i = 0; i < matrix.size(); i++) {
+            set<int> accountedV;
+   
+            for(int j = 0; j < matrix.size(); j++) 
+                accountedV.insert(matrix[j][i]);
+            
+            if(accountedV.size() != key)
+                return false;
+        }
+        return true;
+    }
+};
