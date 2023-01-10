@@ -1,0 +1,16 @@
+// 342. Power of Four
+// Given an integer n, return true if it is a power of four. Otherwise, return false.
+// An integer n is a power of four, if there exists an integer x such that n == 4x.
+
+class Solution {
+public:
+    bool isPowerOfFour(int n) {
+        if(n < 0 || n == 0)
+            return false;
+
+        int x = log10(n) / log10(4);
+        if(pow(4, x) == n)
+            return true;
+        return false;
+    }
+};

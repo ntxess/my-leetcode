@@ -31,22 +31,13 @@ public:
         };
 
         string ans = "";
-        if(num > 0) {
-            int currVal = num;
-            while(currVal) {
-                int hexCode = currVal % 16;
-                currVal /= 16;
-                ans.insert(ans.begin(), map[hexCode]);
-            }
-        } else {
-            unsigned int negativeVal = num;
-            while(negativeVal) {
-                int hexCode = negativeVal % 16;
-                negativeVal /= 16;
-                ans.insert(ans.begin(), map[hexCode]);
-            }
+        unsigned int negativeVal = num;
+        while(negativeVal) {
+            int hexCode = negativeVal % 16;
+            negativeVal /= 16;
+            ans.insert(ans.begin(), map[hexCode]);
         }
-
+    
         return ans;
     }
 };
