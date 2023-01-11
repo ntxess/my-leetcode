@@ -4,6 +4,7 @@
         "1-twosum": "cpp",
         "141-linkedlistcycle": "cpp",
         "242-validanagram": "cpp",
-        "202-happynumber": "cpp"
+        "202-happynumber": "cpp",
+        "448-finddisappearingnum": "cpp"
     }
 }

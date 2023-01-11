@@ -1,0 +1,18 @@
+// 414. Third Maximum Number
+// Given an integer array nums, return the third distinct maximum 
+// number in this array. If the third maximum does not exist, return the maximum number.
+
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+      set<int> uniq;
+      for(auto i : nums){
+            uniq.insert(i);
+            if(uniq.size() > 3){
+                uniq.erase(uniq.begin());
+            }
+      }  
+
+      return uniq.size() == 3 ? *uniq.begin() : *uniq.rbegin();
+    }
+};
