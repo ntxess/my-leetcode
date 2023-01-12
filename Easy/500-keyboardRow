@@ -1,0 +1,44 @@
+// 500. Keyboard Row
+// Given an array of strings words, return the words that can be typed using letters of the alphabet on 
+// only one row of American keyboard like the image below.
+// In the American keyboard:
+// the first row consists of the characters "qwertyuiop",
+// the second row consists of the characters "asdfghjkl", and
+// the third row consists of the characters "zxcvbnm".
+
+class Solution {
+public:
+    vector<string> findWords(vector<string>& words) {
+        set<char> row1 = {
+            'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'
+        };
+        set<char> row2  = {
+            'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'
+        };
+        set<char> row3  = {
+            'z', 'x', 'c', 'v', 'b', 'n', 'm'
+        };
+
+        vector<string> ans;
+        for(auto word : words) {
+            bool r1Pass = true;
+            bool r2Pass = true;
+            bool r3Pass = true;
+
+            for(int i = 0; i < word.length(); i++) {
+                if(r1Pass && row1.find(tolower(word[i])) == row1.end())
+                    r1Pass = false;
+                
+                if(r2Pass && row2.find(tolower(word[i])) == row2.end())
+                    r2Pass = false;
+
+                if(r3Pass && row3.find(tolower(word[i])) == row3.end())
+                    r3Pass = false;
+            }
+
+            if(r1Pass || r2Pass || r3Pass)
+                ans.push_back(word);
+        }
+        return ans;
+    }
+};
