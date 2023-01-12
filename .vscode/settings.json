@@ -5,6 +5,7 @@
         "141-linkedlistcycle": "cpp",
         "242-validanagram": "cpp",
         "202-happynumber": "cpp",
-        "448-finddisappearingnum": "cpp"
+        "448-finddisappearingnum": "cpp",
+        "482-licensekeyformatting": "cpp"
     }
 }
