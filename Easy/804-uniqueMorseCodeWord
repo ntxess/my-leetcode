@@ -1,0 +1,30 @@
+// 804. Unique Morse Code Words
+// International Morse Code defines a standard encoding where each letter is mapped to a series of dots and 
+// dashes, as follows:
+// 'a' maps to ".-",
+// 'b' maps to "-...",
+// 'c' maps to "-.-.", and so on.
+// For convenience, the full table for the 26 letters of the English alphabet is given below:
+
+class Solution {
+public:
+    int uniqueMorseRepresentations(vector<string>& words) {
+        vector<string> morseDict = {
+            ".-","-...","-.-.","-..",".","..-.","--.","....",
+            "..",".---","-.-",".-..","--","-.","---",".--.",
+            "--.-",".-.","...","-","..-","...-",".--","-..-",
+            "-.--","--.."
+        };
+
+        set<string> transformations;
+        for(auto word : words) {
+            string morseCode = "";
+            for(int i = 0; i < word.length(); i++) {
+                morseCode = morseCode + morseDict[int(word[i]-'a')];
+            }
+            transformations.insert(morseCode);
+        }
+
+        return transformations.size();
+    }
+};
