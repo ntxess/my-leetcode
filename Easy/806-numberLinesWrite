@@ -6,9 +6,9 @@
 // Then, from where you stopped in s, continue writing as many letters as you can on the second line. Continue this 
 // process until you have written all of s.
 // Return an array result of length 2 where:
+// result[0] is the total number of lines.
+// result[1] is the width of the last line in pixels.
 
-result[0] is the total number of lines.
-result[1] is the width of the last line in pixels.
 class Solution {
 public:
     vector<int> numberOfLines(vector<int>& widths, string s) {

@@ -6,6 +6,7 @@
         "242-validanagram": "cpp",
         "202-happynumber": "cpp",
         "448-finddisappearingnum": "cpp",
-        "482-licensekeyformatting": "cpp"
+        "482-licensekeyformatting": "cpp",
+        "806-numberlineswrite": "cpp"
     }
 }
