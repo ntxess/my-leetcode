@@ -8,6 +8,7 @@
         "448-finddisappearingnum": "cpp",
         "482-licensekeyformatting": "cpp",
         "806-numberlineswrite": "cpp",
-        "1046-laststoneweight": "cpp"
+        "1046-laststoneweight": "cpp",
+        "844-backspacestrcmp": "cpp"
     }
 }

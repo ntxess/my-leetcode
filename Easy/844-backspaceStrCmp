@@ -1,0 +1,32 @@
+// 844. Backspace String Compare
+// Given two strings s and t, return true if they are equal when both are typed into empty text editors. 
+// '#' means a backspace character.
+// Note that after backspacing an empty text, the text will continue empty.
+
+class Solution {
+public:
+    bool backspaceCompare(string s, string t) {
+        string str1;
+        string str2;
+
+        for(auto i : s) {
+            if(i == '#') {
+                if(!str1.empty())
+                    str1.pop_back();
+            } else {
+                str1.push_back(i);
+            }
+        }
+
+        for(auto i : t) {
+            if(i == '#') {
+                if(!str2.empty())
+                    str2.pop_back();
+            } else {
+                str2.push_back(i);
+            }
+        }
+
+        return str1 == str2;
+    }
+};
