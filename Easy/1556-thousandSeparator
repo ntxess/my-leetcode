@@ -1,0 +1,23 @@
+// 1556. Thousand Separator
+// Given an integer n, add a dot (".") as the thousands separator and return it in string format.
+
+class Solution {
+public:
+    string thousandSeparator(int n) {
+        if(!n)
+            return "0";
+            
+        string ans;
+        int dotPos = 0;
+        while(n) {
+           ans = to_string(n % 10) + ans;
+            dotPos++;
+            n /= 10;
+            if(dotPos % 3 == 0)
+                ans = "." + ans;
+        }
+        if(ans[0] == '.')
+            ans.erase(ans.begin());
+        return ans;
+    }
+};
