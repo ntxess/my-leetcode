@@ -1,0 +1,21 @@
+// 976. Largest Perimeter Triangle
+// Given an integer array nums, return the largest perimeter of a triangle with a non-zero area, 
+// formed from three of these lengths. If it is impossible to form any triangle of a non-zero area, 
+// return 0.
+
+class Solution {
+public:
+    int largestPerimeter(vector<int>& nums) {
+        sort(nums.begin(), nums.end(), greater<int>());
+
+        for(int i = 2; i < nums.size(); i++) {
+            int x = nums[i];
+            int y = nums[i-1];
+            int z = nums[i-2];
+
+            if(x + y > z && x + z > y && y + z > x)
+                return nums[i] + nums[i-1] + nums[i-2];
+        }
+        return 0;
+    }
+};
