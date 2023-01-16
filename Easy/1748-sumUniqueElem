@@ -1,0 +1,21 @@
+// 1748. Sum of Unique Elements
+// You are given an integer array nums. The unique elements of an array are the elements 
+// that appear exactly once in the array.
+// Return the sum of all the unique elements of nums.
+
+class Solution {
+public:
+    int sumOfUnique(vector<int>& nums) {
+        unordered_map<int, int> map;
+        int ans = 0;
+        for(auto i : nums) {
+            map[i]++;
+        }
+
+        for(auto i : map) {
+            if(i.second == 1)
+                ans += i.first;
+        }
+        return ans;
+    }
+};
