@@ -1,0 +1,30 @@
+// 1886. Determine Whether Matrix Can Be Obtained By Rotation
+// Given two n x n binary matrices mat and target, return true if it is possible to make mat equal 
+// to target by rotating mat in 90-degree increments, or false otherwise.
+
+class Solution {
+public:
+    bool findRotation(vector<vector<int>>& mat, vector<vector<int>>& target) {
+        bool deg0 = true;
+        bool deg90 = true;
+        bool deg180 = true;
+        bool deg270 = true;
+
+        for(int i = 0; i < mat.size(); i++) {
+            for(int j = 0; j < mat[i].size(); j++) {
+                if(target[i][j] != mat[i][j])
+                    deg0 = false;
+
+                if(target[i][j] != mat[j][mat[i].size()-1 - i])
+                    deg90 = false;
+                
+                if(target[i][j] != mat[mat[i].size()-1 - i][mat[i].size()-1 - j])
+                    deg180 = false;
+                
+                if(target[i][j] != mat[mat[i].size()-1 - j][i])
+                    deg270 = false;
+            }
+        }
+        return deg0 || deg90 || deg180 || deg270;
+    }
+};
