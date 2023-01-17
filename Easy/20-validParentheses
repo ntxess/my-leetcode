@@ -36,3 +36,22 @@ public:
             return false;
     }
 };
+
+// updated review
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> stk;
+        for(auto ch : s) {
+            if(!stk.empty()) {
+                if((stk.top() == '(' && ch == ')') || (stk.top() == '[' && ch == ']') 
+                    || (stk.top() == '{' && ch == '}')) {
+                    stk.pop();
+                    continue;
+                } 
+            }
+            stk.push(ch);
+        }
+        return stk.empty();
+    }
+};
