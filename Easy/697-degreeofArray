@@ -1,0 +1,34 @@
+// 697. Degree of an Array
+// Given a non-empty array of non-negative integers nums, the degree of this array is defined as the maximum frequency of any one of its elements.
+// Your task is to find the smallest possible length of a (contiguous) subarray of nums, that has the same degree as nums.
+
+class Solution {
+public:
+    int findShortestSubArray(vector<int>& A) {
+        unordered_map<int, int> map;
+        int maxDegree = 0;
+        for(auto i : A) {
+            map[i]++;
+            maxDegree = max(maxDegree, map[i]);
+        }
+
+        int length = INT_MAX;
+        for(int i = 0; i < A.size(); i++) {
+            int degree = map[A[i]];
+            if(degree == maxDegree) {
+                int len = 0;
+                int j = i;
+                while(j < A.size() && 0 < map[A[i]]) {
+                    if(A[i] == A[j]) {
+                        map[A[i]]--;
+                    }
+                    len++;
+                    j++;
+                }
+                length = min(length, len);
+            }
+        }
+
+        return length;
+    }
+};
