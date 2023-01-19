@@ -1,0 +1,21 @@
+// 1207. Unique Number of Occurrences
+// Given an array of integers arr, return true if the number of occurrences of each value in the array is unique or false otherwise.
+
+class Solution {
+public:
+    bool uniqueOccurrences(vector<int>& arr) {
+        unordered_map<int, int> map;
+        unordered_set<int> set;
+
+        for(auto i : arr) {
+            map[i]++;
+        }
+
+        for(auto i : map) {
+            if(set.find(i.second) != set.end())
+                return false;
+            set.insert(i.second);
+        }
+        return true;
+    }
+};
