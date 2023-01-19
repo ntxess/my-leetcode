@@ -1,0 +1,47 @@
+// 1189. Maximum Number of Balloons
+// Given a string text, you want to use the characters of text to form as many instances of the word "balloon" as possible.
+// You can use each character in text at most once. Return the maximum number of instances that can be formed.
+
+class Solution {
+public:
+    int maxNumberOfBalloons(string text) {
+        unordered_map<char, int> balloon = {
+            {'b', 1},
+            {'a', 1},
+            {'l', 2},
+            {'o', 2},
+            {'n', 1},
+        };
+
+        unordered_map<char, int> map;
+        for(auto ch : text) {
+            map[ch]++;
+        }
+
+        int completed = INT_MAX;
+        for(auto i : balloon) {
+            completed = min(completed, map[i.first] / i.second);
+        }
+
+        return completed;
+    }
+};
+
+// revised
+class Solution {
+public:
+    int maxNumberOfBalloons(string text) {
+        unordered_map<char, int> map;
+        for(auto ch : text) {
+            map[ch]++;
+        }
+
+        int completed = INT_MAX;
+        completed = min(completed, map['b']);
+        completed = min(completed, map['a']);
+        completed = min(completed, map['l'] / 2);
+        completed = min(completed, map['o'] / 2);
+        completed = min(completed, map['n']);
+        return completed;
+    }
+};
