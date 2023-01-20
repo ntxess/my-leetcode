@@ -1,0 +1,64 @@
+// 999. Available Captures for Rook
+// On an 8 x 8 chessboard, there is exactly one white rook 'R' and some number of white bishops 'B', black pawns 
+// 'p', and empty squares '.'.
+// When the rook moves, it chooses one of four cardinal directions (north, east, south, or west), then moves in 
+// that direction until it chooses to stop, reaches the edge of the board, captures a black pawn, or is blocked by a 
+// white bishop. A rook is considered attacking a pawn if the rook can capture the pawn on the rook's 
+// turn. The number of available captures for the white rook is the number of pawns that the rook is attacking.
+// Return the number of available captures for the white rook.
+
+class Solution {
+public:
+    int numRookCaptures(vector<vector<char>>& board) {
+        vector<int> rookPos = getRookPos(board);
+
+        int ans = 0;
+        for(int i = rookPos[0]; i >= 0; i--) {
+            if(board[i][rookPos[1]] == 'p') {
+                ans++;
+                break;
+            } else if(board[i][rookPos[1]] == 'B') {
+                break;
+            }
+        }
+
+        for(int i = rookPos[0]; i < board.size(); i++) {
+            if(board[i][rookPos[1]] == 'p') {
+                ans++;
+                break;
+            } else if(board[i][rookPos[1]] == 'B') {
+                break;
+            }
+        }
+
+        for(int j = rookPos[1]; j >= 0; j--) {
+            if(board[rookPos[0]][j] == 'p') {
+                ans++;
+                break;
+            } else if(board[rookPos[0]][j] == 'B') {
+                break;
+            }
+        }
+
+        for(int j = rookPos[1]; j < board[0].size(); j++) {
+            if(board[rookPos[0]][j] == 'p') {
+                ans++;
+                break;
+            } else if(board[rookPos[0]][j] == 'B') {
+                break;
+            }
+        }
+        return ans;
+    }
+
+    vector<int> getRookPos(vector<vector<char>>& board) {
+        for(int i = 0; i < board.size(); i++) {
+            for(int j = 0; j < board[i].size(); j++) {
+                if(board[i][j] == 'R') {
+                    return {i, j};
+                }
+            }
+        }
+        return {-1, -1};
+    }
+};
