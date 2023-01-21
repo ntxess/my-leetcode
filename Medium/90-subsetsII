@@ -1,0 +1,28 @@
+// 90. Subsets II
+// Given an integer array nums that may contain duplicates, return all possible 
+// subsets (the power set).
+// The solution set must not contain duplicate subsets. Return the solution in any order.
+
+class Solution {
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> subset = {{}};
+        unordered_map<int, int> map;
+        for(auto num : nums) {
+            int n = subset.size();
+            int i = 0;
+    
+            if(map.find(num) != map.end())
+                i = map[num];
+
+            while(i < n) {
+                subset.push_back(subset[i]);
+                subset.back().push_back(num);
+                map[num]++;
+                i++;
+            }
+        }
+        return subset;
+    }
+};
