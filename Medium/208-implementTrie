@@ -1,0 +1,67 @@
+// 208. Implement Trie (Prefix Tree)
+// A trie (pronounced as "try") or prefix tree is a tree data structure used to efficiently store and retrieve keys 
+// in a dataset of strings. There are various applications of this data structure, such as autocomplete and spellchecker.
+// Implement the Trie class:
+// Trie() Initializes the trie object.
+// void insert(String word) Inserts the string word into the trie.
+// boolean search(String word) Returns true if the string word is in the trie (i.e., was inserted before), and false otherwise.
+// boolean startsWith(String prefix) Returns true if there is a previously inserted string word that has the prefix prefix, and false otherwise.
+class Trie {
+private:
+    struct TrieNode {
+        unordered_map<char, TrieNode*> children;
+        bool complete = false;
+    };
+
+    TrieNode* root;
+
+public:
+    Trie() {
+        root = new TrieNode();
+    }
+    
+    void insert(string word) {
+        TrieNode* curr = root;
+
+        for(auto ch : word) {
+            if(curr->children.find(ch) == curr->children.end()) {
+                TrieNode* newNode = new TrieNode();
+                curr->children[ch] = newNode;
+            } 
+            curr = curr->children[ch];
+        }
+        curr->complete = true;
+    }
+    
+    bool search(string word) {
+        TrieNode* curr = root;
+
+        for(auto ch : word) {
+            if(curr->children.find(ch) == curr->children.end())
+                return false;
+            
+            curr = curr->children[ch];
+        }
+        return curr->complete;
+    }
+    
+    bool startsWith(string prefix) {
+        TrieNode* curr = root;
+
+        for(auto ch : prefix) {
+            if(curr->children.find(ch) == curr->children.end())
+                return false;
+            
+            curr = curr->children[ch];
+        }
+        return true;
+    }
+};
+
+/**
+ * Your Trie object will be instantiated and called as such:
+ * Trie* obj = new Trie();
+ * obj->insert(word);
+ * bool param_2 = obj->search(word);
+ * bool param_3 = obj->startsWith(prefix);
+ */
