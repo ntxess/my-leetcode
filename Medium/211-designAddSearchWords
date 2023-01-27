@@ -1,0 +1,65 @@
+// 211. Design Add and Search Words Data Structure
+// Design a data structure that supports adding new words and finding if a string matches any previously added string.
+// Implement the WordDictionary class:
+// WordDictionary() Initializes the object.
+// void addWord(word) Adds word to the data structure, it can be matched later.
+// bool search(word) Returns true if there is any string in the data structure that matches word or false otherwise. word may 
+// contain dots '.' where dots can be matched with any letter.
+
+class WordDictionary {
+private:
+    struct TrieNode {
+        vector<TrieNode*> children;
+        bool complete;
+        TrieNode() 
+            : children(vector<TrieNode*>(26, nullptr)), complete(false) {}
+    };
+
+    TrieNode* root;
+
+public:
+    WordDictionary() 
+        : root(new TrieNode()) {}
+    
+    void addWord(string word) {
+        TrieNode* current = root;
+        
+        for(auto ch : word) {
+            if(!current->children[ch-'a']) {
+                TrieNode* newNode =  new TrieNode();
+                current->children[ch-'a'] = newNode;
+            }
+            current = current->children[ch-'a'];
+        }
+        current->complete = true;
+    }
+    
+    bool search(string word) {
+        TrieNode* head = root;
+        return searchHelper(word, 0, head);
+    }
+
+    bool searchHelper(string& word, int pos, TrieNode* root) {
+        if(!root)
+            return false;
+            
+        if (pos == word.size())
+            return root->complete;
+
+        if(word[pos] != '.')
+            return searchHelper(word, pos+1, root->children[word[pos]-'a']);
+
+        for(auto child : root->children)
+            if(searchHelper(word, pos+1, child))
+                return true;
+
+        return false;
+    }
+};
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary* obj = new WordDictionary();
+ * obj->addWord(word);
+ * bool param_2 = obj->search(word);
+ */
