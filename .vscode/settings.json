@@ -11,6 +11,8 @@
         "1046-laststoneweight": "cpp",
         "844-backspacestrcmp": "cpp",
         "1232-checkstraightline": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "tuple": "cpp",
+        "utility": "cpp"
     }
 }
