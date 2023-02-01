@@ -10,6 +10,7 @@
         "806-numberlineswrite": "cpp",
         "1046-laststoneweight": "cpp",
         "844-backspacestrcmp": "cpp",
-        "1232-checkstraightline": "cpp"
+        "1232-checkstraightline": "cpp",
+        "vector": "cpp"
     }
 }
