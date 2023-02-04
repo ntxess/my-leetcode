@@ -1,0 +1,28 @@
+// 1539. Kth Missing Positive Number
+// Given an array arr of positive integers sorted in a strictly increasing order, and an integer k.
+// Return the kth positive integer that is missing from this array.
+
+class Solution {
+public:
+    int findKthPositive(vector<int>& arr, int k) {
+        int missingNum = 0;
+        int num = 1;
+        int i = 0;
+        while(num < arr[arr.size()-1]) {
+            if(num == arr[i]) {
+                i++;
+            } else {
+                missingNum++;
+                if(missingNum == k)
+                    return num;
+            }
+            num++;
+        }
+
+        while(missingNum < k) {
+            missingNum++;
+            num++;
+        }
+        return num;
+    }
+};
