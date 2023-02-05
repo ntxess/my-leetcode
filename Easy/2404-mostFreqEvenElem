@@ -1,0 +1,25 @@
+// 2404. Most Frequent Even Element
+// Given an integer array nums, return the most frequent even element.
+// If there is a tie, return the smallest one. If there is no such element, return -1.
+
+class Solution {
+public:
+    int mostFrequentEven(vector<int>& nums) {
+        map<int, int> evens;
+
+        for(auto num : nums) {
+            if(num % 2 == 0)
+                evens[num]++;
+        }
+
+        int mostFreq = 0;
+        int ans = -1;
+        for(auto it : evens) {
+            if(mostFreq < it.second) {
+                mostFreq = it.second;
+                ans = it.first;
+            }
+        }
+        return ans;
+    }
+};
