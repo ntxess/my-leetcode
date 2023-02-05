@@ -1,0 +1,80 @@
+// 1275. Find Winner on a Tic Tac Toe Game
+// Tic-tac-toe is played by two players A and B on a 3 x 3 grid. The rules of Tic-Tac-Toe are:
+
+// Players take turns placing characters into empty squares ' '.
+// The first player A always places 'X' characters, while the second player B always places 'O' characters.
+// 'X' and 'O' characters are always placed into empty squares, never on filled ones.
+// The game ends when there are three of the same (non-empty) character filling any row, column, or diagonal.
+// The game also ends if all squares are non-empty.
+// No more moves can be played if the game is over.
+// Given a 2D integer array moves where moves[i] = [rowi, coli] indicates that the ith move will be played on grid[rowi][coli]. return the winner of the game if it exists (A or B). In case the game ends in a draw return "Draw". If there are still movements to play return "Pending".
+
+// You can assume that moves is valid (i.e., it follows the rules of Tic-Tac-Toe), the grid is initially empty, and A will play first.
+
+class Solution {
+public:
+    string tictactoe(vector<vector<int>>& moves) {
+        vector<vector<int>> board(3, vector<int>(3));
+        for(int i = 0; i < moves.size(); i++) {
+            if(i % 2 == 0)
+                board[moves[i][0]][moves[i][1]] = 1;
+            else 
+                board[moves[i][0]][moves[i][1]] = 2;
+        }
+
+        for(int i = 0; i < 3; i++) {
+            for(int j = 0; j < 3; j++) {
+                cout << board[i][j] << " ";
+            }
+            cout << endl;
+        }
+        
+        for(int i = 0; i < 3; i++) {
+            for(int j = 0; j < 3; j++) {
+                if(winnerFound(board, i, j)) {
+                    if(board[i][j] == 1)
+                        return "A";
+                    else
+                        return "B";
+                }
+            }
+        }
+
+        if(moves.size() == 9)
+            return "Draw";
+        return "Pending";
+    }
+
+    bool winnerFound(vector<vector<int>>& moves, int row, int col) {
+        if(moves[row][col] != 1 && moves[row][col] != 2)
+            return false;
+
+        int marker = moves[row][col];
+
+        int horizontal = 0;       
+        for(int i = 0; i < 3; i++) {
+            if(moves[row][i] == marker)
+                horizontal++;
+        }
+
+        int vertical = 0;
+        for(int i = 0; i < 3; i++) {
+            if(moves[i][col] == marker)
+                vertical++;
+        }
+
+        if((row == 0 && col == 0) || (row == 2 && col == 2)) {
+            if(moves[0][0] == marker && moves[1][1] == marker && moves[2][2] == marker) {
+                return true;
+            }
+        }
+
+        if((row == 0 && col == 2) || (row == 2 && col == 0)) {
+            if(moves[0][2] == marker && moves[1][1] == marker && moves[2][0] == marker) {
+                return true;
+            }
+        }
+        
+        return (horizontal == 3 || vertical == 3) ? true : false;
+    }
+};
