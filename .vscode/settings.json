@@ -13,6 +13,7 @@
         "1232-checkstraightline": "cpp",
         "vector": "cpp",
         "tuple": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "xstring": "cpp"
     }
 }
