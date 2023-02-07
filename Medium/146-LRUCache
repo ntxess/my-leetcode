@@ -1,0 +1,71 @@
+// 146. LRU Cache
+// Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.
+
+// Implement the LRUCache class:
+
+// LRUCache(int capacity) Initialize the LRU cache with positive size capacity.
+// int get(int key) Return the value of the key if the key exists, otherwise return -1.
+// void put(int key, int value) Update the value of the key if the key exists. Otherwise, add the key-value pair to the cache. If the number of keys exceeds the capacity from this operation, evict the least recently used key.
+// The functions get and put must each run in O(1) average time complexity.
+
+class LRUCache {
+private:
+    struct data {
+        int value;
+        int agebit;
+        data() : value(0), agebit(0) {}
+    };
+
+    unordered_map<int, data> cache;
+    int timer;
+    int size;
+    int capacity;
+
+public:
+    LRUCache(int capacity) 
+        : lru(0), lruKey(0), timer(0), size(0), capacity(capacity) {}
+    
+    int get(int key) {
+        if(cache.find(key) == cache.end()) 
+            return -1;
+        
+        lru++;
+        cache[key].agebit = timer++;
+        return cache[key].value;
+    }
+    
+    void put(int key, int value) {
+        if(cache.find(key) != cache.end()) {
+            // cout << "[PUT Replace]: " << key << " : " << value << endl;
+            cache[key].value = value;
+            cache[key].agebit = timer++;
+        } else {
+            if(size < capacity) {
+                // cout << "[PUT New]: " << key << " : " << value << endl;
+                cache[key].value = value;
+                cache[key].agebit = timer++;
+                size++;
+            } else {
+                // cout << "[PUT Evict]: " << key << " : " << value << endl;
+                int lruKey = 0;
+                int lru = INT_MAX;
+                for(auto data : cache) {
+                    if(data.second.agebit < lru) {
+                        lru = data.second.agebit;
+                        lruKey = data.first;
+                    }
+                }
+                cache.erase(lruKey);
+                cache[key].value = value;
+                cache[key].agebit = timer++;
+            }
+        }
+    }
+};
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache* obj = new LRUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */
