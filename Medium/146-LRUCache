@@ -12,52 +12,47 @@ class LRUCache {
 private:
     struct data {
         int value;
-        int agebit;
-        data() : value(0), agebit(0) {}
+        list<int>::iterator agebit;
+        data() : value(0) {}
     };
 
     unordered_map<int, data> cache;
-    int timer;
+    list<int> lifeTimes;
     int size;
     int capacity;
 
 public:
     LRUCache(int capacity) 
-        : lru(0), lruKey(0), timer(0), size(0), capacity(capacity) {}
+        : size(0), capacity(capacity) {}
     
     int get(int key) {
         if(cache.find(key) == cache.end()) 
             return -1;
         
-        lru++;
-        cache[key].agebit = timer++;
+        lifeTimes.erase(cache[key].agebit);
+        lifeTimes.push_front(key);
+        cache[key].agebit = lifeTimes.begin();
         return cache[key].value;
     }
     
     void put(int key, int value) {
         if(cache.find(key) != cache.end()) {
-            // cout << "[PUT Replace]: " << key << " : " << value << endl;
+            lifeTimes.erase(cache[key].agebit);
+            lifeTimes.push_front(key);
+            cache[key].agebit = lifeTimes.begin();
             cache[key].value = value;
-            cache[key].agebit = timer++;
         } else {
             if(size < capacity) {
-                // cout << "[PUT New]: " << key << " : " << value << endl;
+                lifeTimes.push_front(key);
+                cache[key].agebit = lifeTimes.begin();
                 cache[key].value = value;
-                cache[key].agebit = timer++;
                 size++;
             } else {
-                // cout << "[PUT Evict]: " << key << " : " << value << endl;
-                int lruKey = 0;
-                int lru = INT_MAX;
-                for(auto data : cache) {
-                    if(data.second.agebit < lru) {
-                        lru = data.second.agebit;
-                        lruKey = data.first;
-                    }
-                }
-                cache.erase(lruKey);
+                lifeTimes.push_front(key);
+                cache[key].agebit = lifeTimes.begin();
                 cache[key].value = value;
-                cache[key].agebit = timer++;
+                cache.erase(lifeTimes.back());
+                lifeTimes.pop_back();
             }
         }
     }
