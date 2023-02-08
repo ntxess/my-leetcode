@@ -41,7 +41,6 @@ public:
             lifeTimes.push_front(key);
             cache[key].agebit = lifeTimes.begin();
             cache[key].value = value;
-        } else {
             if(size < capacity) {
                 lifeTimes.push_front(key);
                 cache[key].agebit = lifeTimes.begin();
@@ -53,11 +52,7 @@ public:
                 cache[key].value = value;
                 cache.erase(lifeTimes.back());
                 lifeTimes.pop_back();
-            }
-        }
-    }
-};
-
+        } else {
 /**
  * Your LRUCache object will be instantiated and called as such:
  * LRUCache* obj = new LRUCache(capacity);
