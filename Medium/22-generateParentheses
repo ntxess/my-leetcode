@@ -1,0 +1,25 @@
+// 22. Generate Parentheses
+// Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        int parenL = 0, parenR = 0;
+        vector<string> ans;
+        generateParenHelper(n, "", parenL, parenR, ans);
+        return ans;
+    }
+
+    void generateParenHelper(int n, string s, int parenL, int parenR, vector<string>& ans) {
+        if(parenL == n && parenR == n) {
+            ans.push_back(s);
+            return;
+        }
+    
+        if(parenL < n)
+            generateParenHelper(n, s + "(", parenL+1, parenR, ans);
+
+        if(parenR < parenL)
+            generateParenHelper(n, s + ")", parenL, parenR+1, ans);
+    }
+};
