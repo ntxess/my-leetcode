@@ -1,0 +1,16 @@
+// 1344. Angle Between Hands of a Clock
+// Given two numbers, hour and minutes, return the smaller angle (in degrees) formed between the hour and the minute hand.
+// Answers within 10-5 of the actual value will be accepted as correct.
+
+class Solution {
+public:
+    double angleClock(int hour, int minutes) {
+        const double DEG_PER_MIN = double(360) / double(60);
+        const double DEG_PER_HOUR = double(30); 
+
+        double minDeg = DEG_PER_MIN * minutes;
+        double hourDeg = (DEG_PER_HOUR * (double(minutes) / double(60))) + ((hour % 12) * double(30));
+        
+        return min(abs(minDeg - hourDeg), 360 - abs(minDeg - hourDeg));
+    }
+};
