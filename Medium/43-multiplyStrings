@@ -1,0 +1,42 @@
+// 43. Multiply Strings
+// Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2, also represented as a string.
+// Note: You must not use any built-in BigInteger library or convert the inputs to integer directly.
+
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+        if(num1 == "0" || num2 == "0")
+            return "0";
+
+        vector<int> product(num1.size() + num2.size(), 0);
+
+        for(int i = num1.size()-1; i >= 0; --i) {
+            for(int j = num2.size()-1; j >= 0; --j) {
+                // cout << "[ " << i << " ] * [ " << j << " ] + [ " << i+j << " ]" << endl;
+                // cout << num1[i]-'0' << " * " << num2[j]-'0' << " + " << product[i+j+1] << " = ";
+
+                int result = ((num1[i]-'0') * (num2[j]-'0')) + (product[i+j+1]);
+                product[i+j] += result / 10;
+                product[i+j+1] = result % 10;
+
+                // cout << "Result: " << result << endl;
+                // cout << "\t LSD: " << result % 10 << endl;
+                // cout << "\t MSD: " << result / 10 << endl;
+                // cout << "\t S: ";
+                // for(auto d : product)
+                //     cout << d;
+                // cout << "\n\n";
+            }
+        }
+        
+        int i = 0;
+        string ans = "";
+        while (product[i] == 0) 
+            i++;
+
+        while (i < product.size()) 
+            ans += to_string(product[i++]);
+
+        return ans;
+    }
+};
