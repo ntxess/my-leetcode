@@ -15,6 +15,7 @@
         "tuple": "cpp",
         "utility": "cpp",
         "xstring": "cpp",
-        "2047-numvalidwordsent": "cpp"
+        "2047-numvalidwordsent": "cpp",
+        "622-designcircularqueue": "cpp"
     }
 }
