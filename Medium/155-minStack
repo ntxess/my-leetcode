@@ -18,8 +18,8 @@ public:
     void push(int val) {
         int minval = val;
         if(!minstk.empty())
-            minval = minstk.top().second;
-        minstk.push({val, min(minval, val)});
+            minval = min(minval, minstk.top().second);
+        minstk.push({val, minval});
     }
     
     void pop() {
