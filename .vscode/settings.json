@@ -16,6 +16,7 @@
         "utility": "cpp",
         "xstring": "cpp",
         "2047-numvalidwordsent": "cpp",
-        "622-designcircularqueue": "cpp"
+        "622-designcircularqueue": "cpp",
+        "xmemory": "cpp"
     }
 }

@@ -1,0 +1,62 @@
+// 2502. Design Memory Allocator
+// You are given an integer n representing the size of a 0-indexed memory array. All memory units are initially free.
+// You have a memory allocator with the following functionalities:
+// Allocate a block of size consecutive free memory units and assign it the id mID.
+// Free all memory units with the given id mID.
+// Note that:
+// Multiple blocks can be allocated to the same mID.
+// You should free all the memory units with mID, even if they were allocated in different blocks.
+// Implement the Allocator class:
+// Allocator(int n) Initializes an Allocator object with a memory array of size n.
+// int allocate(int size, int mID) Find the leftmost block of size consecutive free memory units and allocate it with the id mID. Return the block's first index. If such a block does not exist, return -1.
+// int free(int mID) Free all memory units with the id mID. Return the number of memory units you have freed.
+
+// not to self: fix this
+class Allocator {
+private: 
+    unordered_map<int, vector<int>> memTable;
+    vector<int> memory;
+
+public:
+    Allocator(int n) {
+        memory = vector<int>(n, 0);    
+    }
+    
+    int allocate(int size, int mID) {
+        int start = -1, count = 0;
+        for(int i = 0; i < memory.size(); ++i) {
+            if(memory[i] == 0) {
+                if(count == 0) start = i;
+                count++;
+                if(count >= size) {
+                    for(int j = 0; j < count; ++j) {
+                        memory[start + j] = mID;
+                        memTable[mID].push_back(start + j);
+                    }
+                    return start;
+                }
+            } else {
+                start = -1;
+                count = 0;
+            }
+        }
+        return -1;
+    }
+    
+    int free(int mID) {
+        auto addresses = memTable[mID];
+        int size = addresses.size();
+        for(int i = 0; i < size; ++i) {
+            memory[addresses[i]] = 0;
+        }
+        memTable.erase(mID);
+        return size;
+    }
+};
+
+/**
+ * Your Allocator object will be instantiated and called as such:
+ * Allocator* obj = new Allocator(n);
+ * int param_1 = obj->allocate(size,mID);
+ * int param_2 = obj->free(mID);
+ */
