@@ -1,0 +1,43 @@
+// 77. Combinations
+// Given two integers n and k, return all possible combinations of k numbers chosen from the range [1, n].
+// You may return the answer in any order.
+
+class Solution {
+public:
+    vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>> ans;
+        vector<int> current;
+        helper(n, k, 1, current, ans);
+        return ans;
+    }
+
+    void helper(int n, int k, int i, vector<int>& current, vector<vector<int>>& ans) {
+        if(current.size() == k) {
+            ans.push_back(current);
+            return;
+        }
+
+        for(; i <= n; ++i) {
+            if(current.size() < k) {
+                current.push_back(i);
+                helper(n, k, i+1, current, ans);
+                current.pop_back();
+            }
+        }
+    }
+};
+
+// def backtrack(candidate):
+//     if find_solution(candidate):
+//         output(candidate)
+//         return
+    
+//     # iterate all possible candidates.
+//     for next_candidate in list_of_candidates:
+//         if is_valid(next_candidate):
+//             # try this partial candidate solution
+//             place(next_candidate)
+//             # given the candidate, explore further.
+//             backtrack(next_candidate)
+//             # backtrack
+//             remove(next_candidate)
