@@ -1,0 +1,35 @@
+// 967. Numbers With Same Consecutive Differences
+// Given two integers n and k, return an array of all the integers of length n where the difference between 
+// every two consecutive digits is k. You may return the answer in any order.
+// Note that the integers should not have leading zeros. Integers as 02 and 043 are not allowed.
+
+class Solution {
+private:
+    vector<int> ans;
+    string current;
+
+public:
+    vector<int> numsSameConsecDiff(int n, int k) {
+        helper(n, k);
+        return ans;
+    }
+
+    void helper(int n, int k) {
+        if(current.length() == n) {
+            ans.push_back(stoi(current));
+            return;
+        }
+
+        for(int i = 0; i < 10; ++i) {
+            if(current.empty() && i != 0) {
+                current.push_back(i + '0');
+                helper(n, k);
+                current.pop_back();
+            } else if(abs((current.back() - '0') - i) == k) {
+                current.push_back(i + '0');
+                helper(n, k);
+                current.pop_back();
+            }
+        }
+    }
+};
