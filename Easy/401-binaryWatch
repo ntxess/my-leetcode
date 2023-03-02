@@ -1,0 +1,48 @@
+// 401. Binary Watch
+// A binary watch has 4 LEDs on the top to represent the hours (0-11), and 6 LEDs on the bottom to represent the minutes (0-59). 
+// Each LED represents a zero or one, with the least significant bit on the right.
+// Given an integer turnedOn which represents the number of LEDs that are currently on (ignoring the PM), 
+// return all possible times the watch could represent. You may return the answer in any order.
+// The hour must not contain a leading zero.
+// For example, "01:00" is not valid. It should be "1:00".
+// The minute must be consist of two digits and may contain a leading zero.
+// For example, "10:2" is not valid. It should be "10:02".
+
+class Solution {
+    vector<int> hours = {1, 2, 4, 8};
+    vector<int> minutes = {1, 2, 4, 8, 16, 32};
+    vector<string> ans;
+
+public:
+    vector<string> readBinaryWatch(int turnedOn) {
+        helper(turnedOn, 0, 0, 0, 0);
+        return ans;
+    }
+
+    void helper(int turnedOn, int idx, int switchedOn, int min, int hour) {
+        if(switchedOn >= turnedOn) {
+            if(switchedOn == turnedOn) {
+                string time = to_string(hour) + ":";
+                if(min < 10)
+                    time += "0";
+                time += to_string(min);
+                ans.push_back(time);
+            }
+            return;
+        }
+
+        for(int i = idx; i < hours.size() + minutes.size(); ++i) {
+            if(i < hours.size()) {
+                hour += hours[i];
+                if(hour < 12)
+                    helper(turnedOn, i+1, switchedOn+1, min, hour);
+                hour -= hours[i];
+            } else {
+                min += minutes[i-hours.size()];
+                if(min < 60)
+                    helper(turnedOn, i+1, switchedOn+1, min, hour);
+                min -= minutes[i-hours.size()];
+            }
+        }
+    }
+};
