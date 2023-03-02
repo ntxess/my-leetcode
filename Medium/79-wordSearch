@@ -1,0 +1,81 @@
+// 79. Word Search
+// Given an m x n grid of characters board and a string word, return true if word exists in the grid.
+// The word can be constructed from letters of sequentially adjacent cells, where adjacent cells are 
+// horizontally or vertically neighboring. The same letter cell may not be used more than once.
+
+class Solution {
+public:
+    bool exist(vector<vector<char>>& board, string word) {
+        int size = board.size() * board[0].size();
+        for(int i = 0; i < board.size(); ++i) {
+            for(int j = 0; j < board[i].size(); ++j) {
+                if(board[i][j] != word[0])
+                    continue;
+
+                if(existHelper(board, word, 0, i, j)) 
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    bool existHelper(vector<vector<char>>& board, string& word, int currChar, int row, int col) {
+        // Base case
+        if(currChar == word.length()-1)
+            return true;
+
+        // Check right if correct
+        //     recurse with current position plus offset of this direction
+        //     j++;
+        if(col+1 < board[row].size()) {
+            if(board[row][col+1] == word[currChar+1] && board[row][col+1] != '.') {
+                char temp = board[row][col];
+                board[row][col] = '.';
+                if(existHelper(board, word, currChar+1, row, col+1))
+                    return true;
+                board[row][col] = temp;
+            }
+        }
+        
+        // Check bottom if correct 
+        //     recurse with current position plus offset of this direction
+        //     i++;
+        if(row+1 < board.size()) {
+            if(board[row+1][col] == word[currChar+1] && board[row+1][col] != '.') {
+                char temp = board[row][col];
+                board[row][col] = '.';
+                if(existHelper(board, word, currChar+1, row+1, col))
+                    return true;
+                board[row][col] = temp;
+            }
+        }
+
+        // Check left if correct
+        //     recurse with current position plus offset of this direction
+        //     j--;
+        if(col-1 >= 0) {
+            if(board[row][col-1] == word[currChar+1] && board[row][col-1] != '.') {
+                char temp = board[row][col];
+                board[row][col] = '.';
+                if(existHelper(board, word, currChar+1, row, col-1))
+                    return true;
+                board[row][col] = temp;
+            }
+        }
+
+        // Check top if correct
+        //     recurse with current position plus offset of this direction
+        //     i--;
+        if(row-1 >= 0) {
+            if(board[row-1][col] == word[currChar+1] && board[row-1][col] != '.') {
+                char temp = board[row][col];
+                board[row][col] = '.';
+                if(existHelper(board, word, currChar+1, row-1, col))
+                    return true;
+                board[row][col] = temp;
+            }
+        }
+
+        return false;
+     }
+};
