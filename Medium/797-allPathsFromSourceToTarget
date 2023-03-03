@@ -1,0 +1,31 @@
+// 797. All Paths From Source to Target
+// Given a directed acyclic graph (DAG) of n nodes labeled from 0 to n - 1, 
+// find all possible paths from node 0 to node n - 1 and return them in any order.
+// The graph is given as follows: graph[i] is a list of all nodes you can visit from node 
+// i (i.e., there is a directed edge from node i to node graph[i][j]).
+
+class Solution {
+private:
+    vector<vector<int>> ans;
+    vector<int> current;
+
+public:
+    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
+        current.push_back(0);
+        helper(graph, graph[0]);
+        return ans;
+    }
+
+    void helper(vector<vector<int>>& graph, vector<int>& pathToTake) {
+        if(current.back() == graph.size()-1) {
+            ans.push_back(current);
+            return;
+        }
+        
+        for(int i = 0; i < pathToTake.size(); ++i) {
+            current.push_back(pathToTake[i]);
+            helper(graph, graph[pathToTake[i]]);
+            current.pop_back();
+        }
+    }
+};
