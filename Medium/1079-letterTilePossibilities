@@ -1,0 +1,34 @@
+// 1079. Letter Tile Possibilities
+// You have n  tiles, where each tile has one letter tiles[i] printed on it.
+// Return the number of possible non-empty sequences of letters you can make using the letters printed on those tiles.
+
+class Solution {
+private: 
+    unordered_set<string> occured;
+    string current;
+
+public:
+    int numTilePossibilities(string tiles) {
+        vector<bool> visited(tiles.size(), false);
+        int count = 0;
+        helper(tiles, visited, count, 0);
+        return count;
+    }
+
+    void helper(string& tiles, vector<bool>& visited, int& count, int idx) {
+        for(int i = 0; i < tiles.size(); ++i) {
+            if(visited[i])
+                continue;
+            
+            visited[i] = true;
+            current.push_back(tiles[i]);
+            if(occured.find(current) == occured.end()) {
+                ++count;
+                occured.insert(current);
+                helper(tiles, visited, count, idx+1);
+            }
+            current.pop_back();
+            visited[i] = false;
+        }
+    }
+};
