@@ -1,0 +1,32 @@
+// 784. Letter Case Permutation
+// Given a string s, you can transform every letter individually to be lowercase or uppercase to create another string.
+// Return a list of all possible strings we could create. Return the output in any order.
+
+class Solution {
+private:
+    vector<string> ans;
+    unordered_set<string> occured;
+
+public:
+    vector<string> letterCasePermutation(string s) {
+        helper(s, 0);
+        return ans;        
+    }
+
+    void helper(string& s, int idx) {
+        if(idx == s.size()) {
+            if(occured.find(s) != occured.end())
+                return;
+            
+            occured.insert(s);
+            ans.push_back(s);
+            return;
+        }
+
+        helper(s, idx+1);
+        char temp = s[idx];
+        s[idx] = (isupper(s[idx])) ? tolower(s[idx]) : toupper(s[idx]);
+        helper(s, idx+1);
+        s[idx] = temp;
+    }
+};
