@@ -1,0 +1,45 @@
+// 1286. Iterator for Combination
+// Design the CombinationIterator class:
+// CombinationIterator(string characters, int combinationLength) Initializes the object with a string characters of sorted distinct lowercase English letters and a number combinationLength as arguments.
+// next() Returns the next combination of length combinationLength in lexicographical order.
+// hasNext() Returns true if and only if there exists a next combination.
+
+class CombinationIterator {
+private:
+    vector<string> combinations;
+    int index;
+
+public:
+    CombinationIterator(string characters, int combinationLength) : index(0) {
+            string current;
+            findCombinations(characters, combinationLength, current, 0);
+        }
+    
+    string next() {
+        return combinations[index++];
+    }
+    
+    bool hasNext() {
+        return (index < combinations.size());
+    }
+
+    void findCombinations(string& characters, int combinationLength, string& current, int idx) {
+        if(current.size() == combinationLength) {
+            combinations.push_back(current);
+            return;
+        }
+
+        for(int i = idx; i < characters.size(); ++i) {
+            current.push_back(characters[i]);
+            findCombinations(characters, combinationLength, current, i+1);
+            current.pop_back();
+        }
+    }
+};
+
+/**
+ * Your CombinationIterator object will be instantiated and called as such:
+ * CombinationIterator* obj = new CombinationIterator(characters, combinationLength);
+ * string param_1 = obj->next();
+ * bool param_2 = obj->hasNext();
+ */
